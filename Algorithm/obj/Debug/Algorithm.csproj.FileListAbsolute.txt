@@ -1,0 +1,6 @@
+F:\C#\Interview\LeetCode\Algorithm\obj\Debug\Algorithm.csprojAssemblyReference.cache
+F:\C#\Interview\LeetCode\Algorithm\obj\Debug\Algorithm.csproj.CoreCompileInputs.cache
+F:\C#\Interview\LeetCode\Algorithm\bin\Debug\Algorithm.exe
+F:\C#\Interview\LeetCode\Algorithm\bin\Debug\Algorithm.pdb
+F:\C#\Interview\LeetCode\Algorithm\obj\Debug\Algorithm.exe
+F:\C#\Interview\LeetCode\Algorithm\obj\Debug\Algorithm.pdb
