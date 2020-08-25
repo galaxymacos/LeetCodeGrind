@@ -4,3 +4,9 @@ F:\C#\Interview\LeetCode\Algorithm\bin\Debug\Algorithm.exe
 F:\C#\Interview\LeetCode\Algorithm\bin\Debug\Algorithm.pdb
 F:\C#\Interview\LeetCode\Algorithm\obj\Debug\Algorithm.exe
 F:\C#\Interview\LeetCode\Algorithm\obj\Debug\Algorithm.pdb
+E:\GitRepository\LeetCodeGrind\Algorithm\bin\Debug\Algorithm.exe
+E:\GitRepository\LeetCodeGrind\Algorithm\bin\Debug\Algorithm.pdb
+E:\GitRepository\LeetCodeGrind\Algorithm\obj\Debug\Algorithm.csprojAssemblyReference.cache
+E:\GitRepository\LeetCodeGrind\Algorithm\obj\Debug\Algorithm.csproj.CoreCompileInputs.cache
+E:\GitRepository\LeetCodeGrind\Algorithm\obj\Debug\Algorithm.exe
+E:\GitRepository\LeetCodeGrind\Algorithm\obj\Debug\Algorithm.pdb

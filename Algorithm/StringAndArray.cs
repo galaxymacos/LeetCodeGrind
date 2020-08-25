@@ -187,21 +187,34 @@ namespace Algorithm
 
         public static string LongestPalindrome(string s)
         {
+            string targetString = ""; 
             for (int i = 0; i < s.Length; i++)
             {
-                string targetLength = LongestLength(s, i, 0);
+                string potentialString = LongestLength(s, i, i);
+                if (potentialString.Length > targetString.Length)
+                {
+                    targetString = potentialString;
+                }
             }
-        }
-
-        private static string LongestLength(string s, int start, int length)
-        {
-            if (start - length - 1 < 0 || start + length + 1 >= s.Length || s[start-length-1] != s[start+length+1])
+            for (int i = 0; i < s.Length-1; i++)
             {
-                return s.Substring(start - length - 1, length + 2);
+                string potentialString = LongestLength(s, i, i+1);
+                if (potentialString.Length > targetString.Length)
+                {
+                    targetString = potentialString;
+                }
             }
-
-            return LongestLength(s, start, length + 2);
-
+            return targetString;
         }
+
+        private static string LongestLength(string s, int leftIndex, int rightIndex)
+        {
+            if (leftIndex < 0 || rightIndex >= s.Length || s[leftIndex] != s[rightIndex])
+            {
+                return s.Substring(leftIndex+1, (rightIndex-1)-(leftIndex+1)+1);
+            }
+            return LongestLength(s, leftIndex-1, rightIndex+1);
+        }
+
     }
 }
