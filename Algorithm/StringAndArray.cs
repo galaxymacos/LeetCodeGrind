@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -268,11 +269,14 @@ namespace Algorithm
 
             return sb.ToString();
         }
-
+        
         /// <summary>
         /// Knuth–Morris–Pratt（KMP）算法是一种改进的字符串匹配算法，它的核心是利用匹配失败后的信息，尽量减少模式串与主串的匹配次数以达到快速匹配的目的。它的时间复杂度是 O(m+n)O(m + n)O(m+n)。
         /// 解释地址：https://leetcode-cn.com/leetbook/read/array-and-string/cpoo6/
         /// </summary>
+        /// <param name="p">模式串</param>
+        /// <param name="s">原字符串</param>
+        /// <returns>在原字符串中匹配到的模式串的startIndex</returns>
         public static int KMPMatch(char[] p, char[] s)
         {
             int[] next = BuildNext(p);
@@ -638,6 +642,212 @@ namespace Algorithm
                 return nums[mid];
             }
             return nums[mid] > target ? FindMinBinary(nums, mid + 1, right, target) : FindMinBinary(nums, left, mid - 1, target);
+        }
+        
+        public static int MaxProfit(int[] prices)
+        {
+            int profit = 0;
+
+            int i = 0;
+            while(i<prices.Length-1)
+            {
+                while (i<prices.Length - 1 && prices[i + 1] <= prices[i])
+                {
+                    i++;
+                }
+
+                var valleyIndex = i;
+
+                while (i<prices.Length-1 && prices[i + 1] > prices[i])
+                {
+                    i++;
+                }
+
+                var peakIndex = i;
+
+                profit += prices[peakIndex] - prices[valleyIndex];
+            }
+
+            return profit;
+        }
+        /// <summary>
+        /// 旋转数组
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        public static void Rotate1(int[] nums, int k)
+        {
+            if (k < 0)
+            {
+                k = -k;
+                k = nums.Length-k % nums.Length;
+            }
+            int[] result = new int[nums.Length];
+            for (int i = 0; i < nums.Length; i++)
+            {
+                var newPos = (i + k) % nums.Length;
+                result[newPos] = nums[i];
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                nums[i] = result[i];
+            }
+
+            foreach (int num in nums)
+            {
+                Console.Write(num+" ");
+            }
+
+            Console.WriteLine();
+        }
+
+        public static bool ContainsDuplicate(int[] nums){
+            HashSet<int> set = new HashSet<int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (set.Contains(nums[i]))
+                    return true;
+                set.Add(nums[i]);
+            }
+
+            return false;
+        }
+
+        public static int[] Intersect(int[] nums1, int[] nums2)
+        {
+            Array.Sort(nums1);
+            Array.Sort(nums2);
+            
+            int i = 0;
+            int j = 0;
+            List<int> intersect = new List<int>();
+            while (i < nums1.Length && j < nums2.Length)
+            {
+                if (nums1[i] < nums2[j])
+                {
+                    i++;
+                }
+                else if (nums1[i] > nums2[j])
+                {
+                    j++;
+                }
+                else
+                {
+                    intersect.Add(nums1[i]);
+                    i++;
+                    j++;
+                }
+                
+            }
+
+            return intersect.ToArray();
+
+        } 
+        
+        public static bool IsValidSudoku(char[][] board) {
+            var duplicatedSet = new HashSet<char>();
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    if (duplicatedSet.Contains(board[i][j]))
+                    {
+                        Console.WriteLine("?");
+                        return false;
+                    }
+
+                    if (board[i][j] != '.')
+                    {
+                        duplicatedSet.Add(board[i][j]);
+                        
+                    }
+                }
+                duplicatedSet.Clear();
+
+            }
+
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    if (duplicatedSet.Contains(board[j][i]))
+                    {
+                        Console.WriteLine("??");
+                        return false;
+                    }
+
+                    if (board[j][i] != '.')
+                    {
+                        duplicatedSet.Add(board[j][i]);
+                        
+                    }
+                }
+                duplicatedSet.Clear();
+            }
+
+            for (int i = 0; i < 9; i+=3)
+            {
+                for (int j = 0; j < 9; j+=3)
+                {
+                    
+                    for (int k = 0; k < 3; k++)
+                    {
+                        for (int l = 0; l < 3; l++)
+                        {
+                            if (duplicatedSet.Contains(board[i + k][j + l]))
+                            {
+                                Console.WriteLine("???");
+                                return false;
+                            }
+
+                            if (board[i + k][j+l] != '.')
+                            {
+                                duplicatedSet.Add(board[i + k][j + l]);
+                            }
+                        }
+                    }
+                    
+                    duplicatedSet.Clear();
+                }
+            }
+
+            return true;
+        }
+
+        public static int FirstUniqChar(string s)
+        {
+            Dictionary<char,int> letterIndexDic = new Dictionary<char, int>();
+            HashSet<char> outSet = new HashSet<char>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (!letterIndexDic.ContainsKey(s[i]))
+                {
+                    letterIndexDic.Add(s[i], i);
+                }
+                else
+                {
+                    outSet.Add(s[i]);
+                }
+            }
+
+            foreach (char c in outSet)
+            {
+                letterIndexDic.Remove(c);
+            }
+
+            int minIndex = int.MaxValue;
+            char targetChar = '_';
+            foreach (KeyValuePair<char,int> pair in letterIndexDic)
+            {
+                if (pair.Value < minIndex)
+                {
+                    minIndex = pair.Value;
+                    targetChar = pair.Key;
+                }
+            }
+
+            return minIndex;
         }
     }
 }

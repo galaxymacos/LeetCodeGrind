@@ -16,7 +16,6 @@ namespace Algorithm
             // Console.WriteLine($"Matching array start index: {result}");
             // Console.WriteLine(StringAndArray.ReverseWords2("Let's take LeetCode contest"));
 
-            Console.WriteLine(StringAndArray.FindMin(new []{2,1}));
         }
     }
 }
