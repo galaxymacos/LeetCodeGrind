@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -836,6 +837,11 @@ namespace Algorithm
                 letterIndexDic.Remove(c);
             }
 
+            if (letterIndexDic.Count == 0)
+            {
+                return -1;
+            }
+
             int minIndex = int.MaxValue;
             char targetChar = '_';
             foreach (KeyValuePair<char,int> pair in letterIndexDic)
@@ -848,6 +854,200 @@ namespace Algorithm
             }
 
             return minIndex;
+        }
+
+        public static bool IsAnagram(string s, string t)
+        {
+            Dictionary<char, int> dic = new Dictionary<char, int>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (dic.ContainsKey(s[i]))
+                {
+                    dic[s[i]]++;
+                }
+                else
+                {
+                    dic.Add(s[i], 1);
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                if (dic.ContainsKey(t[i]))
+                {
+                    dic[t[i]]--;
+                    if (dic[t[i]] == 0)
+                    {
+                        dic.Remove(t[i]);
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return dic.Count == 0;
+        }
+         
+        public static int MyAtoi(string str)
+        {
+
+            bool hasFoundSign = false;
+            int negativeSignNum = 0;
+            bool hasFoundNumber = false;
+            bool hasFound1To9 = false;
+            if (str.Length == 0)
+            {
+                return 0;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == '+' || str[i] == '-')
+                {
+                    if (hasFoundNumber || hasFoundSign)
+                    {
+                        return StringToInt(sb.ToString(), negativeSignNum % 2 == 1);
+                    }
+                    else
+                    {
+                        hasFoundSign = true;
+                        if (str[i] == '-')
+                        {
+                            negativeSignNum++;
+                        }
+                    }
+                }
+                else if (str[i] == '-')
+                {
+                    Console.WriteLine(i);
+                    if (hasFoundSign == true)
+                    {
+                        return StringToInt(sb.ToString(), negativeSignNum % 2 == 1);
+                    }
+                    else if (hasFoundNumber == true)
+                    {
+                        return StringToInt(sb.ToString(), negativeSignNum % 2 == 1);
+                    }
+                    else
+                    {
+                        hasFoundSign = true;
+                        sb.Append(str[i]);
+                    }
+                }
+                else if (str[i] >= '0' && str[i] <= '9')
+                {
+                    if (str[i] >= '1' && str[i] <= '9')
+                    {
+                        hasFound1To9 = true;
+                        sb.Append(str[i]);
+                    }
+                    if (str[i] == '0')
+                    {
+                        if (!hasFoundNumber)
+                        {
+                            hasFoundNumber = true;
+                            continue;
+                        }
+
+                        if (hasFound1To9)
+                        {
+                            sb.Append(str[i]);
+
+                        }
+                    }
+                    hasFoundNumber = true;
+                }
+                else if (str[i] == ' ')
+                {
+                    if (hasFoundSign)
+                    {
+                        return StringToInt(sb.ToString(), negativeSignNum % 2 == 1);
+                    }
+                    if (hasFoundNumber)
+                    {
+                        return StringToInt(sb.ToString(), negativeSignNum % 2 == 1);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    if (hasFoundNumber)
+                    {
+                        return StringToInt(sb.ToString(), negativeSignNum % 2 == 1);
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+
+            return StringToInt(sb.ToString(), negativeSignNum%2 == 1);
+        }
+
+
+        public static int StringToInt(string str, bool isNegative)
+        {
+            if (str.Length == 0)
+                return 0;
+            if (str.Length >= 11)
+            {
+                if (isNegative)
+                {
+                    return int.MinValue;
+                }
+                else
+                {
+                    return int.MaxValue;
+                }
+            }
+            int time = 0;
+            long result = 0;
+            for (int i = str.Length - 1; i >= 0; i--)
+            {
+                if (isNegative)
+                {
+                    if (int.MinValue  > result - (str[i] - '0') * (long)Math.Pow(10, time))
+                    {
+                        return int.MinValue;
+                    }
+                    
+                    result -= (str[i] - '0') * (long)Math.Pow(10, time);
+                    
+                }
+                else
+                {
+                    
+                    if (int.MaxValue - (str[i] - '0') * (long)Math.Pow(10, time) < result)
+                    {
+                        return int.MaxValue;
+                    }
+                    result += (str[i] - '0') * (long)Math.Pow(10, time);
+
+                }
+
+                time++;
+            }
+
+            if (result > int.MaxValue || result < int.MinValue)
+            {
+                return int.MinValue;
+            }
+            else
+            {
+                return (int)result;
+            }
+
+        }
+
+        public static int myAtoi2(string str)
+        {
+            
         }
     }
 }
