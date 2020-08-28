@@ -6,7 +6,10 @@
     <e p="F:\C#\Interview\LeetCode" t="IncludeFlat">
       <e p="Algorithm" t="IncludeRecursive">
         <e p="Algorithm.csproj" t="IncludeRecursive" />
+        <e p="Automaton.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="BinaryTree.cs" t="Include" />
+        <e p="DynamicProgramming.cs" t="Include" />
         <e p="Helper.cs" t="Include" />
         <e p="JianzhiOffer.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />

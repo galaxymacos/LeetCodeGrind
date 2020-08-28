@@ -1045,9 +1045,41 @@ namespace Algorithm
 
         }
 
-        public static int myAtoi2(string str)
+        public static string CountAndSay(int n)
         {
-            
+            if (n == 1)
+            {
+                return "1";
+            }
+
+            return Scan(CountAndSay(n - 1));
+        }
+
+        public static string Scan(string str)
+        {
+            Console.WriteLine($"Str: "+str);
+            StringBuilder sb = new StringBuilder();
+            int count = 1;
+            int currentNum = str[0]-'0';
+            for (int i = 1; i < str.Length; i++)
+            {
+                if (str[i]-'0' == currentNum)
+                {
+                    count++;
+                    Console.WriteLine("Count = "+count);
+                }
+                else
+                {
+                        sb.Append(count);
+                        sb.Append(currentNum);
+
+                    currentNum = str[i]-'0';
+                    count = 1;
+                }
+            }
+            sb.Append(count);
+            sb.Append(currentNum);
+            return sb.ToString();
         }
     }
 }
