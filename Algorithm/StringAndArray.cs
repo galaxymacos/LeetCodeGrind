@@ -1081,5 +1081,87 @@ namespace Algorithm
             sb.Append(currentNum);
             return sb.ToString();
         }
+        
+        /// <summary>
+        /// 矩阵置零
+        /// </summary>
+        /// <param name="matrix"></param>
+        public static void SetZeroes(int[][] matrix) {
+            
+            if (matrix == null || matrix.Length == 0)
+            {
+                return;
+            }
+
+            bool shouldClearFirstCol = false;
+            bool shouldClearLastCol = false;
+            for (int i = 1; i < matrix.Length-1; i++)
+            {
+                for (int j = 1; j < matrix[i].Length-1; j++)
+                {
+                    if (matrix[i][j] == 0)
+                    {
+                        if (j == 0)
+                        {
+                            shouldClearFirstCol = true;
+                        }
+                        else if (j == matrix[i].Length - 1)
+                        {
+                            shouldClearLastCol = true;
+                        }
+                        else
+                        {
+                            matrix[0][j] = 0;
+                        }
+
+                        matrix[i][0] = 0;
+                    }
+                }
+            }
+
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                if (matrix[i][0] == 0)
+                {
+                    matrix[i][0] = 0;
+                    for (int j = 1; j < matrix[i].Length; j++)
+                    {
+                            matrix[i][j] = 0;
+                    }
+                }
+
+                
+                
+                
+            }
+
+            for (int i = 1; i < matrix[0].Length - 1; i++)
+            {
+                if (matrix[0][i] == 0)
+                {
+                    matrix[0][i] = 0;
+                    for (int j = 1; j < matrix.Length; j++)
+                    {
+                            matrix[j][i] = 0;
+                    }
+                }
+            }
+
+            if (shouldClearFirstCol)
+            {
+                for (int i = 0; i < matrix.Length; i++)
+                {
+                    matrix[i][0] = 0;
+                }
+            }
+
+            if (shouldClearLastCol)
+            {
+                for (int i = 0; i < matrix.Length; i++)
+                {
+                    matrix[i][matrix[0].Length - 1] = 0;
+                }
+            }
+        }
     }
 }
