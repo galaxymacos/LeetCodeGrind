@@ -20,7 +20,7 @@ namespace Algorithm
             }
         }
 
-        public void Merge(int[] arr, int l, int m, int r)
+        private void Merge(int[] arr, int l, int m, int r)
         {
             int n1 = m - l + 1;
             int n2 = r - m;
@@ -62,6 +62,27 @@ namespace Algorithm
                 arr[j++] = R[j++];
             }
 
+        }
+
+        public static int BinarySearch(int[] nums, int left, int right, int target)
+        {
+            if (left > right)
+            {
+                return -1;
+            }
+
+            int center = (left + right) / 2;
+            if (nums[center] == target)
+            {
+                return center;
+            }
+
+            if (target > nums[center])
+            {
+                return BinarySearch(nums, center+1, right, target);
+            }
+
+            return BinarySearch(nums, left, center - 1, target);
         }
     }
 }

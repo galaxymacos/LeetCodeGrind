@@ -1163,5 +1163,37 @@ namespace Algorithm
                 }
             }
         }
+
+        public static bool IncreasingTriplet(int[] nums)
+        {
+            if (nums == null || nums.Length < 3)
+                return false;
+
+            int secondLowestRecord = int.MaxValue;
+            int lowest = int.MaxValue;
+            int secondLowest = int.MaxValue;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                
+                if (nums[i] > secondLowestRecord)
+                {
+                    return true;
+                }
+                
+                if (nums[i] < lowest)
+                {
+                    lowest = nums[i];
+                    secondLowest = int.MaxValue;
+                }
+                else if (nums[i] != lowest && nums[i] < secondLowest)
+                {
+                    secondLowest = nums[i];
+                    secondLowestRecord = Math.Min(secondLowest, secondLowestRecord);
+                }
+                
+            }
+
+            return false;
+        }
     }
 }

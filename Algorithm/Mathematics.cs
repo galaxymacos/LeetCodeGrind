@@ -124,5 +124,20 @@ namespace Algorithm
 
             return -1;
         }
+
+        #region 拿硬币
+        
+        public int MinCount(int[] coins)
+        {
+            int count = 0;
+            foreach (var coinHeap in coins)
+            {
+                count += (coinHeap + 1) / 2;
+            }
+
+            return count;
+        }
+
+        #endregion
     }
 }

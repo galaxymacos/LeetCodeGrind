@@ -42,8 +42,12 @@
     <Compile Include="BinaryTree.cs" />
     <Compile Include="DynamicProgramming.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="HuiShuoSuanFa.cs" />
+    <Compile Include="IndexClass.cs" />
     <Compile Include="JianzhiOffer.cs" />
     <Compile Include="Mathematics.cs" />
+    <Compile Include="Heap.cs" />
+    <Compile Include="PaiXuHeSouSuo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solution.cs" />
